@@ -1,6 +1,6 @@
 import os
+import re
 import requests
-from bs4 import BeautifulSoup
 
 downloaded_files = {}
 
@@ -11,7 +11,6 @@ def download_file(url, folder):
     response = requests.get(url)
     if response.status_code == 200:
         file_name = os.path.join(folder, url.split("/")[-1])
-        # Check if the file already exists and add a suffix if needed
         file_name = get_unique_filename(file_name)
         with open(file_name, 'wb') as f:
             f.write(response.content)
@@ -30,46 +29,37 @@ def get_unique_filename(file_path):
         counter += 1
     return file_path
 
-def replace_links_in_line(line, old_links, new_links):
-    for old_link, new_link in zip(old_links, new_links):
-        line = line.replace(old_link, new_link)
-    return line
+def replace_urls_in_script(script_content, old_urls, new_urls):
+    for old_url, new_url in zip(old_urls, new_urls):
+        script_content = script_content.replace(old_url, new_url)
+    return script_content
 
-def extract_urls_from_line(line):
-    soup = BeautifulSoup(line, 'html.parser')
-    img_urls = [a['href'] for a in soup.find_all('a', href=True) if a['href'].startswith(("https://cdn.discordapp.com", "https://media.discordapp.net"))]
-    img_urls += [img['src'] for img in soup.find_all('img', {'src': True}) if img['src'].startswith(("https://cdn.discordapp.com", "https://media.discordapp.net"))]
-    video_urls = [source['src'] for source in soup.find_all('source', {'src': True}) if source['src'].startswith(("https://cdn.discordapp.com", "https://media.discordapp.net"))]
-    return img_urls + video_urls
+def extract_urls_from_script(script_content):
+    # Use a regular expression to find all URLs in the script
+    url_pattern = r"'(https://(?:cdn\.discordapp\.com|media\.discordapp\.net)/.*?\.(?:png|webp|gif))'"
+    urls = re.findall(url_pattern, script_content)
+    return urls
 
 def main(input_file, output_folder):
     global downloaded_files
     downloaded_files = {}
 
     with open(input_file, 'r', encoding='utf-8') as file:
-        new_lines = []
-        old_links = []
-        new_links = []
-        
-        for line in file:
-            urls = extract_urls_from_line(line)
-            for url in urls:
-                file_path = download_file(url, output_folder)
-                if file_path:
-                    old_links.append(url)
-                    new_links.append(f"https://77rx2b.github.io/3D-models/website/{os.path.basename(file_path)}")
+        script_content = file.read()
 
-            # Replace old links with new formatted links
-            updated_line = replace_links_in_line(line, old_links, new_links)
-            new_lines.append(updated_line)
+    old_urls = extract_urls_from_script(script_content)
+    new_urls = [f"https://77rx2b.github.io/3D-models/portfolio/{os.path.basename(download_file(url, output_folder))}" for url in old_urls]
 
-    # Save the updated content to the input file
+    # Replace old URLs with new formatted URLs
+    updated_script_content = replace_urls_in_script(script_content, old_urls, new_urls)
+
+    # Save the updated script to the input file
     with open(input_file, 'w', encoding='utf-8') as file:
-        file.writelines(new_lines)
+        file.write(updated_script_content)
 
 if __name__ == "__main__":
-    input_file_path = "blog.txt"  # Replace with the path to your input text file
-    output_folder_path = "website"  # Replace with the desired output folder
+    input_file_path = "blog.txt"  # Replace with the path to your input HTML file
+    output_folder_path = "portfolio"  # Replace with the desired output folder
 
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
