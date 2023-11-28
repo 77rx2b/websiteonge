@@ -1,512 +1,1454 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Portfolio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
-  <link rel="stylesheet" type="text/css" href="portfoliomain.css">
-  <style>
-    .thumbnail {
-      width: 200px;
-      height: 200px;
-      overflow: hidden;
-      display: inline-block;
-      margin: 10px;
-      cursor: pointer;
-      position: relative;
+<html lang="en">
+  <head>
+   <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.0.2/pixi.min.js"></script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script> 
+ <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/20.0.0/tween.umd.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.152.0/examples/jsm/"
     }
-    .thumbnail img {
-      width: auto;
-      height: auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      
-    }
-    .year {
-      text-align: left;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    
-    /* width */
- ::-webkit-scrollbar {
-     width: 3px;
-}
-/* Track */
- ::-webkit-scrollbar-track {
-     background: #000000;
-}
-/* Handle */
- ::-webkit-scrollbar-thumb {
-     background: grey;
-}
-/* Handle on hover */
- ::-webkit-scrollbar-thumb:hover {
-     background: grey;
-}
+  } </script>
 
-    
-  </style>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-  <script>
-    $(document).ready(function() {
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
 
-      var images = [
-        
-        
-        
-                                                                 {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/fangandtrish_1.png',
-          category: '2023',
-          title: 'Snoot game - Fang and Trish',
-          placement: 1.83,
-          position: { top: '166%', left: '170%' } ,
-          scale: 4.2
-        },      
-        
-        
 
-                                                                 {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/tattoodesignss_1.png',
-          category: '2023',
-          title: 'Designs',
-          placement: 1.85,
-          position: { top: '81%', left: '325%' } ,
-          scale: 4.2
-        },      
-        
-                                                         {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/Fx-hpLRWYAIi5u0_1.png',
-          category: '2023',
-          title: 'Leticia',
-          placement: 1.87,
-          position: { top: '164%', left: '42%' } ,
-          scale: 4.2
-        },      
-        
-        
-                                                 {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/FINAL_monster_1.png',
-          category: '2023',
-          title: 'Ongezellig',
-          placement: 1.89,
-          position: { top: '40%', left: '42%' } ,
-          scale: 3.2
-        },      
-        
-                                         {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/Mane_1.png',
-          category: '2023',
-          title: 'Aberta',
-          placement: 1.90,
-          position: { top: '190%', left: '42%' } ,
-          scale: 3.2
-        },       
-                                {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/image_2023-05-21_03-30-11_1.png',
-          category: '2023',
-          title: 'Laceration',
-          placement: 1.91,
-          position: { top: '150%', left: '42%' } ,
-          scale: 3.2
-        },
-        
-        
-                                                         {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/num_1.png',
-          category: '2023',
-          title: 'Freira',
-          placement: 1.93,
-          position: { top: '110%', left: '42%' } ,
-          scale: 3.5
-        },      
-
-        
-
-        
-        
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/epifania3_1.png',
-          category: '2023',
-          title: 'Epifania - Kate',
-          placement: 1.99,
-          position: { top: '140%', left: '90%' } ,
-          scale:  3
-        },
-        
-        
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/epifania1_1.png',
-          category: '2023',
-          title: 'Epifania - Art 1',
-          placement: 2.92,
-          position: { top: '120%', left: '0%' } ,
-          scale: 4
-        },
-        
-        
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/epifania2_1.png',
-          category: '2023',
-          title: 'Epifania - Kate concept',
-          placement: 2.93,
-          position: { top: '170%', left: '0%' } ,
-          scale: 4
-        },
-        
-                {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/epifania4_1.png',
-          category: '2023',
-          title: 'Epifania - Kate concept 2',
-          placement: 2.94,
-          position: { top: '105%', left: '-312%' } ,
-          scale: 4
-        },
-                        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/epifania6_1.png',
-          category: '2023',
-          title: 'Epifania - Ana concept',
-          placement: 2.96,
-          position: { top: '129%', left: '85%' } ,
-          scale: 3
-        },
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/epifania9_1.png',
-          category: '2023',
-          title: 'Epifania - Cover',
-          placement: 3,
-          position: { top: '60%', left: '70%' } ,
-          scale: 2.3
-        },
-        
-                        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/epifania8_1.png',
-          category: '2023',
-          title: 'Epifania - Awake',
-          placement: 3.8,
-          position: { top: '45%', left: '70%' } ,
-          scale: 4
-        },
-        
-                {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/epifania7_1.png',
-          category: '2023',
-          title: 'Epifania - Ana concept 2',
-          placement: 3.9,
-          position: { top: '70%', left: '40%' } ,
-          scale: 2.3
-        },
-                {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/sit25smartphone_final_blog_1.png',
-          category: '2023',
-          title: 'Epifania - Ana pre-concept',
-          placement: 5,
-          position: { top: '60%', left: '35%' } ,
-          scale: 2.3
-        },
   
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/sukeban.gif',
-          category: '2023',
-          title: 'Sukeban',
-          placement: 5,
-          position: { top: '160%', left: '70%' }  ,
-          scale: 2.7
-        },        
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/222222222222222222222222222222222222222222222_1.png',
-          category: '2023',
-          title: 'Buenas?',
-          placement: 6,
-          position: { top: '94%', left: '80%' } ,
-          scale: 2.5
-          
-        },    
-        
-                        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/kobeni_and_darren_blog_final_1.png',
-          category: '2023',
-          title: 'Kobeni & Darren',
-          placement: 6.98,
-          position: { top: '18%', left: '8%' } ,
-          scale: 3
-        },
-        
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1024" >
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"
+/>
 
-        
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/clown_final.webp',
-          category: '2022',
-          title: 'Clown lady',
-          placement: 7,
-          position: { top: '69%', left: '' } ,
-          scale: 1.3
-        },
-        
+<script
+  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"
+></script>
+<script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
 
 
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/claire.webp',
-          category: '2022',
-          title: 'Claire',
-          placement: 8,
-          position: { top: '129%', left: '30%' }  ,
-          scale: 2.7
-        },
-        
-                                        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/Iranianfemalefighter2_1.png',
-          category: '2022',
-          title: 'Unknown Iranian female fighter',
-          placement: 9,
-          position: { top: '95%', left: '120%' } ,
-          scale: 4.2
-        },
+    
+    <link rel="stylesheet" href="/things/add2prototype.css?v=2.8">
+    <meta name="title" content="[ÖNGEZELL.COM]">
+    <meta property="og:type" content="website">
+  <meta name="description" content="Welcome home">
+  <meta name="twitter:image:src" content="https://77rx2b.github.io/3D-models/website/button.gif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://77rx2b.github.io/3D-models/website/button.gif">
+  <meta property="og:type" content="object">
+  <meta property="og:title" content="[ÖNGEZELL.COM]">
+  <meta property="og:url" content="https://ongezell.com/">
+  <meta property="og:description" content="3D/2D Artist - Graphic Designer - Fullstack Dev">
+  <link rel="icon" href="imgs/icon.jpg?v=2.5">
+  <link rel="alternate" href="/rss.xml" type="application/rss+xml">
+  <title>[ÖNGEZELL.COM]</title>
 
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/self_portrait.webp',
-          category: '2022',
-          title: 'Self Portrait',
-          placement: 10,
-          position: { top: '90%', left: '' } ,
-          scale: 2.1
-        },
-          {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/sammy.webp',
-          category: '2022',
-          title: 'Sammy',
-          placement: 11,
-          position: { top: '95%', left: '70%' },
-          scale: 2.1
-        },
 
-         {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/lain.webp',
-          category: '2022',
-          title: 'Lain',
-          placement: 12,
-          position: { top: '125%', left: '30%' },
-          scale: 2
-        },
-                 {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/manhitbybearIguess.webp',
-          category: '2022',
-          title: 'Bear attack',
-          placement: 12,
-          position: { top: '', left: '30%' },
-          scale: 3.5
-        },
-           {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/Cure.webp',
-          category: '2022',
-          title: 'Study of Cure - 1997',
-          placement: 13,
-          position: { top: '65%', left: '90%' },
-          scale: 2
-        },
-                   {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/Alice_and_the_bird_in_the_high_hat.webp',
-          category: '2022',
-          title: 'Crow with the hat - Piece not finished',
-          placement: 14,
-          position: { top: '165%', left: '70%' },
-          scale: 4.8
-        },
+    <meta name="msapplication-TileColor" content="#1D4ED8">
+    <meta name="theme-color" content="#1D4ED8">
+  </head>
+  <body>
+  <div id="sideBar">
+<div id="dropMenu">
+  <a class="tagMenu" onclick="openIframeblog('/portfolio')">Art portfolio</a>
+  <a onclick="openIframeblog('/project/blog/bloglist')" id="blogButton" class="tagMenu">Blog</a>
+  <a class="tagMenu" onclick="openIframeblog('/project/canvas')">Canvas</a>
+  <a class="tagMenu" onclick="openIframeblog('blogposts/movies')">Cinema room</a>
+  <a href="https://youpic.com/photographer/98RX7/" target="_blank" class="tagMenu">Photography</a>
 
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/velma_and_shaggy.webp',
-          category: '2022',
-          title: 'Velma and Shaggy',
-          placement: 15,
-          position: { top: '45%', left: '-35%' },
-          scale: 2.8
-        },
-                {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/New_Project.webp',
-          category: '2022',
-          title: 'Study',
-          placement: 16,
-          position: { top: '51%', left: '54%' },
-          scale: 1.5
-        },        
+</div>
 
-        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/image_4.webp',
-          category: '2022',
-          title: 'hank schrader and Jane Margolis',
-          placement: 17,
-          position: { top: '51%', left: '54%' },
-          scale: 1.5
-        },
-                {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_12.png',
-          category: '2022',
-          title: 'Heisenberg and Jesse - Study',
-          placement: 18,
-          position: { top: '81%', left: '34%' },
-          scale: 2
-        },
-                        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_13.png',
-          category: '2022',
-          title: 'Hannibal Study',
-          placement: 19,
-          position: { top: '', left: '60%' },
-          scale: 1.5
-        },
+  <div id="entireWebsite"></div>
+  </div>
+  <iframe id="myIframe" src=""></iframe>
+  <iframe id="myIframeblog" src=""></iframe>
 
-                                        {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_14.png',
-          category: '2022',
-          title: 'Psychosis',
-          placement: 21,
-          position: { top: '85%', left: '110%' },
-          scale: 4
-        },
-                                                {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_15.png',
-          category: '2022',
-           title: 'Little nightmares',
-          placement: 22,
-          position: { top: '35%', left: '-20%' },
-          scale: 3
-        },
-        
-                                                                                                     {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/Design121_1.png',
-          category: '2022',
-           title: 'Skateboard Design',
-          placement: 23,
-          position: { top: '180%', left: '60%' },
-          scale: 2
-        },
-                                                       {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_16.png',
-          category: '2022',
-           title: "Dead man's hand",
-          placement: 23,
-          position: { top: '70%', left: '' },
-          scale: 1.1
-        },
-                                                                          {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_17.png',
-          category: '2022',
-           title: "...",
-          placement: 24,
-          position: { top: '70%', left: '55%' },
-          scale: 3.4
-        },
-                                                               {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_18.png',
-          category: '2021',
-           title: "Unknown",
-          placement: 24,
-          position: { top: '80%', left: '' },
-          scale: 3
-        },
-                                                                     {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_19.png',
-          category: '2021',
-          title: "Sergey",
-          placement: 25,
-          position: { top: '80%', left: '20%' },
-          scale: 3
-        },
-                                                                             {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_20.png',
-          category: '2021',
-           title: "Balkan",
-          placement: 26,
-          position: { top: '100%', left: '100%' },
-          scale: 3
-        },
-                                                                                     {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_21.png',
-          category: '2021',
-           title: "Giulia",
-          placement: 27,
-          position: { top: '40%', left: '50%' },
-          scale: 2
-        },
+  <script>
+  
+  const lenis = new Lenis({
+  duration: 2.6,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+});
 
-        
-                                {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_22.png',
-          category: '2021',
-          title: "Michael Klein Study",
-          placement: 27.5,
-          position: { top: '75%', left: '60%' },
-          scale: 2
-        },
-                                                                                             {
-          url: 'https://77rx2b.github.io/3D-models/portfolio/unknown_23.png',
-          category: '2021',
-          title: "Yakuza",
-          placement: 28,
-          position: { top: '210%', left: '220%' },
-          scale: 5
-        },
- 
-      ];
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
 
-     
-   images.sort(function (a, b) {
-    return a.placement - b.placement;
-  });
+requestAnimationFrame(raf);
 
-  var currentCategory = null;
-  $.each(images, function (index, image) {
-    if (image.category !== currentCategory) {
-      var yearText = $('<div class="year">').text(image.category);
-      $('#gallery').append(yearText);
-      currentCategory = image.category;
+var scrollDisabledDiv = document.getElementById('sideBar');
+
+scrollDisabledDiv.addEventListener('mouseenter', function () {
+  // Pause lenis.js 
+  document.body.style.overflow = 'hidden';
+  lenis.stop(); 
+});
+
+scrollDisabledDiv.addEventListener('mouseleave', function () {
+  // Start lenis.js 
+  document.body.style.overflow = '';
+  lenis.start(); 
+});
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ $(document).ready(function() {
+  var menuItems = '#dropMenu a';
+  var entireWebsite = '#entireWebsite';
+
+  $('#clickMenu').click(function(e) {
+    e.stopPropagation();
+    if ($('#dropMenu').is(':hidden')) {
+      gsap.fromTo(menuItems, { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 });
+      gsap.to(entireWebsite, { width: '300px' }); 
+      $('#dropMenu').toggle();
+    } else {
+      gsap.to(menuItems, { opacity: 0, y: -20, stagger: 0.1, duration: 0.3, onComplete: function() {
+        $('#dropMenu').hide();
+      } });
+      gsap.to(entireWebsite, {width: '0px' }); 
     }
-
-    var thumbnail = $('<div class="thumbnail">');
-    var link = $('<a>').attr('href', image.url).attr('data-fancybox', 'gallery').attr('data-caption', image.title);
-    var img = $('<img>').attr('src', image.url);
-
-    img.css({
-      top: image.position.top,
-      left: image.position.left,
-      transform: 'translate(-50%, -50%) scale(' + image.scale + ')'
-    });
-
-    img.on('load', function () {
-      var aspectRatio = img.width() / img.height();
-      if (aspectRatio > 1) {
-        img.css('height', '100%');
-      } else {
-        img.css('width', '100%');
-      }
-    });
-
-    link.append(img);
-    thumbnail.append(link);
-    $('#gallery').append(thumbnail);
   });
 
-  $("[data-fancybox='gallery']").fancybox({
-    caption: function (instance, item) {
-      var captionText = item.opts.caption || '';
-      return captionText + '<br><small>' + (item.index + 1) + ' / ' + (item.group ? item.group.length : 1) + '</small>';
+  $(document).click(function(e) {
+    if (!$(e.target).closest('#dropMenu').length && !$(e.target).is('#clickMenu') && !$(e.target).is('#entireWebsite')) {
+      gsap.to(menuItems, { opacity: 0, y: -20, stagger: 0.1, duration: 0.3, onComplete: function() {
+        $('#dropMenu').hide();
+      } });
+      
+      gsap.to(entireWebsite, { width: '0px' });
+    }
+  });
+
+  $(document).keydown(function(e) {
+    if (e.which === 27) { 
+      gsap.to(menuItems, { opacity: 0, y: -20, stagger: 0.1, duration: 0.3, onComplete: function() {
+        $('#dropMenu').hide();
+      } });
+      gsap.to(entireWebsite, { width: '0px' });
     }
   });
 });
-  </script>
-</head>
-<body>
-  <div class="portfoliodiv">
-   <!-- <div class="Sidebar">
-      <div class="InnerSidebar">
-        <h1>[ONGEZELL.COM] - 2D Portfolio</h1>
-        <a href="/">home</a> - 
-        <a href="/pages_glossary">Pages</a>
-      </div>
-    </div> -->
-    <div id="gallery"></div>
+
+
+  
+   function openIframe() {
+    var iframe = document.getElementById('myIframe');
+    var closeButton = document.createElement('div');
+    closeButton.innerHTML = 'Close';
+    closeButton.id = 'closeButton';
+    closeButton.onclick = closeIframe;
+    document.body.appendChild(closeButton);
+
+    iframe.src = 'https://ongezell.com/project/canvas';
+    gsap.to(iframe, { opacity: 1, duration: 0.5 });
+    iframe.style.display = 'block';
+    document.addEventListener('keydown', handleEscKey);
+  }
+
+function closeIframe() {
+  var iframe = document.getElementById('myIframe');
+  var closeButton = document.getElementById('closeButton');
+  
+  if (iframe) {
+    gsap.to(iframe, {
+      opacity: 0,
+      duration: 0.5,
+      onComplete: function () {
+        iframe.src = '';
+        iframe.style.display = 'none';
+      }
+    });
+  }
+
+  if (closeButton) {
+    closeButton.remove();
+  }
+  document.removeEventListener('keydown', handleEscKey);
+}
+ 
+ var closeButton = null; 
+ 
+   var loadingSpinner = document.getElementById('loadingSpinner');
+  
+  if (!loadingSpinner) {
+    loadingSpinner = document.createElement('div');
+    loadingSpinner.innerHTML = '<div class="loadingText">Loading<a>.</a><a>.</a><a>.</a></div>';
+    loadingSpinner.id = 'loadingSpinner';
+    document.body.appendChild(loadingSpinner);
+  }
+
+
+  loadingSpinner.style.position = 'fixed';
+  loadingSpinner.style.top = '50%';
+  loadingSpinner.style.left = '50%';
+  loadingSpinner.style.fontSize = '2em';
+ loadingSpinner.style.display = 'none';
+   loadingSpinner.style.pointerEvents = 'none';
+  gsap.to(loadingSpinner.querySelectorAll('a'), {
+    repeat: -1,
+    yoyo: true,
+    opacity: 0,
+    duration: .5,
+    stagger: 0.5, 
+  });
+
+function openIframeblog(url) {
+  var iframe = document.getElementById('myIframeblog');
+  var loadingSpinner = document.getElementById('loadingSpinner');
+  
+  
+
+  if (!closeButton) {
+    closeButton = document.createElement('div');
+    closeButton.innerHTML = 'Close';
+    closeButton.id = 'closeButton';
+    closeButton.onclick = closeIframeblog;
+    document.body.appendChild(closeButton);
+  }
+  loadingSpinner.style.display = 'block';
+   loadingSpinner.querySelector('.loadingText').style.display = 'block';
+  
+
+  gsap.to(iframe, {
+    opacity: 0,
+    duration: 0.5,
+    onComplete: function () {
+      iframe.src = url;
+      iframe.onload = function () {
+        gsap.to(iframe, { opacity: 1, duration: .5 });
+          loadingSpinner.querySelector('.loadingText').style.display = 'none';
+   
+      };
+    },
+  });
+
+  iframe.style.display = 'block';
+  document.addEventListener('keydown', handleEscKey);
+}
+
+function closeIframeblog() {
+  var iframe = document.getElementById('myIframeblog');
+
+  if (iframe) {
+    gsap.to(iframe, {
+      opacity: 0,
+      duration: 0.5,
+      onComplete: function () {
+        iframe.src = '';
+        iframe.style.display = 'none';
+             loadingSpinner.style.display = 'none';
+      }
+    });
+  }
+
+  if (closeButton) {
+    closeButton.remove();
+    closeButton = null; 
+  }
+  document.removeEventListener('keydown', handleEscKey);
+}
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    var referrer = document.referrer;
+    var targetURL = 'https://ongezell.com/blog/blog';
+  var menuItems = '#dropMenu a';
+  var entireWebsite = '#entireWebsite';
+    if (referrer === targetURL) {
+        openIframeblog('/project/blog/bloglist');
+      gsap.fromTo(menuItems, { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 });
+      gsap.to(entireWebsite, { width: '300px' }); 
+      $('#dropMenu').toggle();
+    }
+});
+
+  function handleEscKey(event) {
+    if (event.key === 'Escape') {
+      closeIframeblog();
+      
+    }
+  }
+</script>
+  
+  
+  <div class="overlayre1"></div>
+  <div class="overlayre2"></div>
+   <div id="scrollProgressBar"></div>
+    <div id="overlaynotLand">
+
+<p>This website wasn't designed for mobile devices. <br><br> Please visit the nearest computer terminal to experience it, or turn your device into landscape mode. <br><br> <a class="mobileVer" href="/things/about">Visit mobile version</a> </p>
+
+
+
+    </div>
+
+    <script>
+        function isPortrait() {
+            return window.matchMedia("(orientation: portrait)").matches;
+        }
+
+        function toggleOverlay() {
+            const overlay = document.getElementById("overlaynotLand");
+            if (isPortrait()) {
+                overlay.style.display = "block";
+            } else {
+                overlay.style.display = "none";
+            }
+        }
+
+        toggleOverlay();
+        window.addEventListener("resize", toggleOverlay);
+    </script>
+  
+  <div id="mujahideen">THIS WEBSITE IS DEDICATED<br> TO THE BRAVE MUJAHIDEEN FIGHTERS AND PEOPLE<br> OF PALESTINE, LEBANON AND YEMEN</div>
+  <div id="donatePalestine">Help save lives <p>
+ <a href="https://www.map.org.uk/donate/donate/" target="_blank">
+  <img src="https://palestine.support/assets/images/image04.png" alt="MAP">
+</a>
+
+<a href="https://www.palestinercs.org/en/Donation" target="_blank">
+  <img src="https://palestine.support/assets/images/image05.png" alt="palestinercs">
+</a>
+
+  
   </div>
-</body>
+  <div class="textFrame">
+ <a class="text">[</a>
+    <a class="text">Ö</a>
+  <a class="text">N</a>
+  <a class="text">G</a>
+  <a class="text">E</a>
+  <a class="text">Z</a>
+  <a class="text">E</a>
+  <a class="text">L</a>
+  <a class="text">L</a>
+  <a class="text">]</a>
+</div>
+
+<div class="textFrame2">
+  <a class="text2">2D/3D Artist</a><br>
+  <a class="text2">Graphic Designer</a><br>
+  <a class="text2">Full Stack Developer</a>
+</div>
+
+<div class="worksDiv">
+  <a>[</a>
+<a>W</a>
+<a>o</a>
+<a>r</a>
+<a>k</a>
+<a>s</a>
+<a>]</a>
+
+</div>
+<div class="overlayScreen1">
+  <div class="overlayScreen2"></div>
+</div>
+<div class="triangle">
+  <a>▼</a>
+  <a>▼</a>
+  <a>▼</a>
+  <a>▼</a>
+</div>
+<div class="enquiresOpacity2">
+  <div class="enquires">
+    <a id="clickMenu">Pages</a>
+    <a href="mailto:ongezell@protonmail.com" target="_blank">Email</a>
+    <a href="/project/repository" target="_blank">Repo</a>
+    <a href="https://t.me/s/ongezell" target="_blank">Telegram</a>
+  </div>
+</div>
+<img class="Palestine" src="https://77rx2b.github.io/3D-models/website/giphy.webp">
+
+<div class="worksFrame">
+  <div class="work a1">
+    <a href="https://antarcticastatus.com" target="_blank">
+      <p>[ANTARCTICASTATUS]</p>
+      <p>An extraordinary website dedicated to delivering real-time scientific insights from Antarctica, complete with live camera feeds.</p>
+      <p>Technologies: Python and Node.js</p>
+      <p>Utilizes notable libraries such as Pillow for enhanced functionality.</p>
+    </a>
+  </div>
+  <div class="work a2">
+    <a href="https://ongezell.com/database" target="_blank">
+      <p>[DATABASE]</p>
+      <p>A dynamic social hub designed for web developers of all skill levels, providing a platform to showcase their websites and attract a broader audience.</p>
+      <p>Technologies: Node.js and Express.js</p>
+      <p>Relies on essential libraries including Axios, EJS, and Bcrypt for seamless operations.</p>
+    </a>
+  </div>
+  <div class="work a3">
+    <a href="https://collaboracanvas.neocities.org" target="_blank">
+      <p>[CollaboraCanvas]</p>
+      <p>An innovative virtual bulletin board that facilitates real-time interaction on static pages, simplifying communication with your audience and enabling them to leave digital stickers and other interactive elements.</p>
+      <p>Technologies: Node.js and Express.js</p>
+      <p>Enhanced with notable libraries like Express and socket.io, along with Geo-IP for geolocation features.</p>
+    </a>
+  </div>
+</div>
+
+
+<div class="trigger trigger1"></div>
+<div class="trigger trigger2"></div>
+<div class="trigger trigger3"></div>
+<div class="trigger trigger4"></div>
+<div class="trigger trigger5"></div>
+<div class="trigger trigger6"></div>
+<div class="trigger trigger7"></div>
+<div class="trigger trigger8"></div>
+<div class="trigger trigger9"></div>
+
+
+
+<canvas class="view"></canvas>
+
+<script id="backgroundFragment" type="x-shader/x-fragment">
+// Adapted from: https://www.shadertoy.com/view/MdlGRr
+
+// It is required to set the float precision for fragment shaders in OpenGL ES
+// More info here: https://stackoverflow.com/a/28540641/4908989
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform vec2 uPointerDiff;
+
+// This function returns 1 if `coord` correspond to a grid line, 0 otherwise
+float isGridLine (vec2 coord) {
+  vec2 pixelsPerGrid = vec2(50.0, 50.0);
+  vec2 gridCoords = fract(coord / pixelsPerGrid);
+  vec2 gridPixelCoords = gridCoords * pixelsPerGrid;
+  vec2 gridLine = step(gridPixelCoords, vec2(1.0));
+  float isGridLine = max(gridLine.x, gridLine.y);
+  return isGridLine;
+}
+
+// Main function
+void main () {
+  // Coordinates minus the `uPointerDiff` value, and plus an offset
+  vec2 coord = gl_FragCoord.xy - uPointerDiff + vec2(10.0);
+  // Set `color` to black
+  vec3 color = vec3(0.0);
+  // If it is a grid line, change blue channel to 0.3
+  color.b = isGridLine(coord) * 0.3;
+  // Assing the final rgba color to `gl_FragColor`
+  gl_FragColor = vec4(color, 1.0);
+}
+</script>
+
+<script id="stageFragment" type="x-shader/x-fragment">
+// Adapted from: https://www.shadertoy.com/view/4lSGRw
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+// Uniforms from Javascript
+uniform vec2 uResolution;
+uniform float uPointerDown;
+
+// The texture is defined by PixiJS
+varying vec2 vTextureCoord;
+uniform sampler2D uSampler;
+
+// Function used to get the distortion effect
+vec2 computeUV (vec2 uv, float k, float kcube) {
+  vec2 t = uv - 0.5;
+  float r2 = t.x * t.x + t.y * t.y;
+  float f = 0.0;
+  if (kcube == 0.0) {
+    f = 1.0 + r2 * k;
+  } else {
+    f = 1.0 + r2 * (k + kcube * sqrt(r2));
+  }
+  vec2 nUv = f * t + 0.5;
+  nUv.y = 1.0 - nUv.y;
+  return nUv;
+}
+
+void main () {
+  // Normalized coordinates
+  vec2 uv = gl_FragCoord.xy / uResolution.xy;
+
+  // Settings for the effect
+  // Multiplied by `uPointerDown`, a value between 0 and 1
+  float k = -1.0 * uPointerDown;
+  float kcube = 0.5 * uPointerDown;
+  float offset = 0.02 * uPointerDown;
+  
+  // Get each channel's color using the texture provided by PixiJS
+  // and the `computeUV` function
+  float red = texture2D(uSampler, computeUV(uv, k + offset, kcube)).r;
+  float green = texture2D(uSampler, computeUV(uv, k, kcube)).g;
+  float blue = texture2D(uSampler, computeUV(uv, k - offset, kcube)).b;
+  
+  // Assing the final rgba color to `gl_FragColor`
+  gl_FragColor = vec4(red, green, blue, 1.0);
+}
+</script>
+
+
+
+<div class="overlayBlack">
+</div>
+<canvas class="cm"></canvas>
+  <div class="overlay"> <img class="freezing" src="https://77rx2b.github.io/3D-models/website/image.png"/> <img class="blizard" src="https://77rx2b.github.io/3D-models/website/snow3.gif"/></div>
+    <nav class="toplogo">
+      <div class="top">
+        <div class="left">
+          <h1>[ÖNGEZELL.COM]</h1>
+        </div>
+        <div class="center"></div>
+      </div>
+      <ul class="links">
+  <div id="links-bar">
+    <a id="pagesContent" href="#">Pages</a> |
+    <a href="/things/about">Portal</a>
+
+  </div>
+      </ul>
+    </nav>
+
+    <div class="hack">
+      <div class="container">
+        <main class="my-main-content">
+          <div class="row profile">
+          <!--
+       <div class="col w-40 left" data-tilt data-tilt-full-page-listening>
+              <span class="name" itemprop="name">
+                <span class="receipt"> - (Click to open) </span>
+                <h1>Ongezell</h1>
+              </span> <div class="details" id="ABOUTTRIGGER">
+                <h4>About me</h4>
+                <p>"ناصر التهديد"</p>
+                <p>25/Brazil - Rio de janeiro</p>
+                <p>Developer / Graphic Designer <br> 2D & 3D Artist </p>
+  
+              </div>
+              
+                                <div class="mood">
+                <h4>Projects</h4>
+                <p>
+                  <b>
+                    <a id="ASButton" style="color: #D564DE !important;" target=”_blank” href="https://antarcticastatus.com/">[ANTARCTICASTATUS]</a> 
+                    <a style="color: #D564DE !important;" target=”_blank” href="/database">[DATABASE]</a> 
+                    <p><a style="color: #D564DE !important;" target=”_blank” href="https://collaboracanvas.neocities.org/">[CollaboraCanvas]</a> 
+                    <a style="color: #D564DE !important;" target=”_blank” href="/project/repository">[REPOSITORY]</a> 
+                  </b>
+                </p>
+              </div>
+              <div class="mood">
+                <p>
+                  <b>Mood: Schizoid (ﾉ´ヮ`)ﾉ*: ･ﾟ</b>
+                </p>
+                <p>
+                  <b>View my: <a class="artportfolio" style="color: #D564DE !important;" target=”_blank” href="/portfolio">Portfolio</a> | <a  href="https://ongezell.com/project/blog/bloglist" id="blogLink" style="color: #D564DE !important;">Blog</a>
+                  </b>
+                </p>
+              </div>
+              <div class="contact">
+                <h4>Contacting Ongezell</h4>
+                <a href="mailto: ongezell@airmail.cc">
+                  <img src="/things/about_files/comment.png" class="icon" aria-hidden="true" alt="">Send Email </a>
+              </div>
+              <div class="url-info">
+                <p>
+                  <b>Website URL:</b>
+                </p>
+                <p>https://ongezell.com/</p>
+              </div>
+              <div class="mood">
+                <h4>Interests</h4>
+                <p>
+                  <b>
+                    <a style="color: #D564DE !important;" target=”_blank” href="https://www.last.fm/user/Ongezell">Last.fm</a> | <a style="color: #D564DE !important;" target=”_blank” href="/blogposts/movies">Movie list</a>
+                  </b>
+                </p>
+              </div>
+              <div class="mood">
+                <h4>Ongezell's Links</h4>
+                <p>
+                  <b>
+                    <a style="color: #D564DE !important;" target=”_blank” href="https://ongezell.newgrounds.com/">Newgrounds</a> | <a style="color: #D564DE !important;" target=”_blank” href="https://www.youtube.com/@ongezell/">Youtube</a> | <a style="color: #D564DE !important;" target=”_blank” href="https://youpic.com/photographer/98RX7/">Youpic</a>
+                  </b>
+                </p>
+              </div>
+            </div>
+            -->
+            
+            <div class="col right">
+              <div class="blog-preview">
+                <p>
+                  <i></i>
+                </p>
+              </div>
+              <div class="blurbs">
+                <br>
+                <div class="inner">
+                  <div class="section">
+                    <h4></h4>
+                    <p itemprop="description"></p>
+                    <div class="test">
+                      <div class="Disclaimer">This website was sponsored by the shadow goverment.</div>
+                      
+                      <a class="shopText">Enter the shop</a>
+                      <img class="flameM" src="" />
+                      <img class="flameM2" src="" />
+                      <div class="merchant">
+                        <img class="merchantImg" src="" />
+    
+                      </div>
+                      <img class="china" src="">
+
+                    </div>
+                    <img class="ted" src="">
+                    <style>.canvasGraphic {
+
+
+} </style>
+                     <canvas class="canvasGraphic graphic"></canvas>
+  
+                    <img class="xijinping" src="">
+                    <div class="theBog">
+                    <img src="https://77rx2b.github.io/3D-models/website/The_Bogdanoffsbw.png" />
+                    </div>
+                    <style>
+                    #loadingSpinner {
+
+  z-index: 9997;
+  background-color: rgba(0,0,0,.7);
+  backdrop-filter: blur(4px);
+  padding: 100%;
+  transform: translate(-50% ,-50%);
+}
+
+                    
+                    
+                    </style>
+                    <p></p>
+                  </div>
+                  <div class="section">
+                    <h4></h4>
+                    <p>
+
+                                  <canvas class="canvaslikes likes"></canvas>
+
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="friends"></div>
+            </div>
+          </div>
+        </main>
+
+      </div>
+
+
+
+    </div>
+<!--    <div class="ecco">
+   Nightmares find me, they strike like lightning Blinding lights over the horizon I look to the sky and it smiles back down on me Am I missing something? (A dream of life) Close my eyes and the sun stops shining Close my eyes and the sky falls down on me It all seems so real, am I missing something? Five star the crest, love and respect will win again The shields shining, golden falcons flying in Silver glowing, three-three's open The castle sings, D-E-O-A D-E-O-A, quest completion Inspiratio heroine, I'm born again, no suffering I am everything, Fountainhead from the Arrowhead Under iron rain, rest my head under arrowheads Everything, Fountainhead from the Arrowhead Under iron rain, rest my head under arrowheads (Loss and gain) Oh, Gloria! Oh, Gloria! Oh, Gloria! Oh, Gloria!</div> -->
+    <script src="/things/js/vanilla-tilt.min.js"></script>
+
+
+  <div id="content">
+
+  </div>
+
+
+  
+    <script type="module" src="/things/3dtest.js?v=2.0"></script>
+
+  
+  
+  
+  
+  <script>
+  
+  
+
+/*
+
+
+    function canvasLikes() {
+const canvasContainer = document.querySelector('.canvaslikes');
+const canvas = document.querySelector('.canvaslikes');
+const gl = canvas.getContext('webgl', { alpha: true });
+let mouseX;
+let mouseY;
+let cappedUMouseX;
+let canvasSize;
+
+function resizeCanvas() {
+  const { clientWidth: width, clientHeight: height } = canvasContainer;
+  
+  if (cappedUMouseX !== 0) {
+    canvasSize = 400; 
+  } else {
+    canvasSize = 2000;
+  }
+
+  if (canvas.width !== width || canvas.height !== height) {
+    canvas.width = canvas.height = canvasSize;
+    gl.viewport(0, 0, width, height);
+  }
+}
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const vertexShaderSource = `
+        attribute vec2 a_position;
+        varying vec2 v_texCoord;
+        void main() {
+          gl_Position = vec4(a_position, 0, 1);
+          v_texCoord = a_position * 0.9 + 0.5;
+        }
+      `;
+
+      const fragmentShaderSource = `
+precision mediump float;
+uniform sampler2D uTexture;
+uniform float uTime;
+uniform float uScrollProgress;
+uniform float uMouseX;
+uniform float uMouseY;
+varying vec2 v_texCoord;
+
+void main() {
+  vec2 uv = v_texCoord;
+
+  // Invert the y-component to fix the upside-down texture issue
+  uv.y = 1.0 - uv.y;
+
+  // Cap the maximum value of uMouseX
+  float cappedUMouseX = min(uMouseX, 0.0);
+
+  // Calculate distortion based on scrolling progress
+  float distortionAmount = smoothstep(0.1, 0.0, cappedUMouseX); // Gradually increase distortion
+  float waveX = sin(uv.y * 10.0 + uTime * 4.0 + cappedUMouseX * 5.0) * distortionAmount;
+  float waveY = cos(uv.x * 1000.0 + uTime * 4.0 + uMouseY * 5.0) * distortionAmount;
+
+  // Apply distortion to UV coordinates
+  uv += vec2(waveX, waveY) * cappedUMouseX;
+
+  // Dither effect modified by uMouseX value
+  vec2 ditherUV = floor(uv * 1000.0);
+  float dither = fract(sin(dot(ditherUV, vec2(12.9898, 78.233))) * 43758.5453);
+  uv += (dither - 0.5) * cappedUMouseX;
+
+  vec3 color = texture2D(uTexture, uv).rgb;
+  
+    // Set alpha to the intensity of the mousecap for the liquid effect
+    gl_FragColor = vec4(color, cappedUMouseX);
+}
+
+
+
+      `;
+
+      function createShader(gl, type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        return shader;
+      }
+
+      function createProgram(gl, vertexShader, fragmentShader) {
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        return program;
+      }
+
+      const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+      const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+      const program = createProgram(gl, vertexShader, fragmentShader);
+
+      const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
+      const uMouseXLocation = gl.getUniformLocation(program, 'uMouseX');
+      const uMouseYLocation = gl.getUniformLocation(program, 'uMouseY');
+
+      const positionBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      const positions = [-1, -1, 1, -1, -1, 1, 1, 1];
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+      const texture = gl.createTexture();
+      const image = new Image();
+      image.onload = function() {
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      };
+        image.src = 'https://ongezell.com/images/graphic_website.png';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      ScrollTrigger.create({
+        trigger: "body",
+        start: "-500px",
+        end: "4500px bottom",
+        scrub: true,
+        onUpdate: (self) => {
+         mouseX = self.progress * 2 - 1;
+        cappedUMouseX = Math.min(mouseX, 0.0);
+          mouseY = self.progress * 2 - 1;
+          //console.log(cappedUMouseX);
+          gl.uniform1f(uMouseXLocation, mouseX);
+          gl.uniform1f(uMouseYLocation, mouseY);
+          resizeCanvas();
+        },
+      });
+
+      function render() {
+        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        gl.useProgram(program);
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+        gl.enableVertexAttribArray(positionAttributeLocation);
+        gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
+
+        gl.uniform1i(gl.getUniformLocation(program, 'uTexture'), 0); // Set the texture unit
+        gl.activeTexture(gl.TEXTURE0); 
+        gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+        gl.bindTexture(gl.TEXTURE_2D, texture); 
+        
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+        requestAnimationFrame(render);
+      }
+
+      requestAnimationFrame(render);
+    }
+    
+    $( document ).ready(function() {
+
+    canvasLikes();
+ 
+    });
+    
+    */
+  </script>
+    <script src="/things/js/vanilla-tilt.min.js"></script>
+    
+
+   
+   
+   <script>
+   
+   let ease;
+   
+   (function() {
+
+  // Class to generate a random masonry layout, using a square grid as base
+  class Grid {
+
+    // The constructor receives all the following parameters:
+    // - gridSize: The size (width and height) for smallest unit size
+    // - gridColumns: Number of columns for the grid (width = gridColumns * gridSize)
+    // - gridRows: Number of rows for the grid (height = gridRows * gridSize)
+    // - gridMin: Min width and height limits for rectangles (in grid units)
+    constructor(gridSize, gridColumns, gridRows, gridMin) {
+      this.gridSize = gridSize
+      this.gridColumns = gridColumns
+      this.gridRows = gridRows
+      this.gridMin = gridMin
+      this.rects = []
+      this.currentRects = [{ x: 0, y: 0, w: this.gridColumns, h: this.gridRows }]
+    }
+
+    // Takes the first rectangle on the list, and divides it in 2 more rectangles if possible
+    splitCurrentRect () {
+      if (this.currentRects.length) {
+        const currentRect = this.currentRects.shift()
+        const cutVertical = currentRect.w > currentRect.h
+        const cutSide = cutVertical ? currentRect.w : currentRect.h
+        const cutSize = cutVertical ? 'w' : 'h'
+        const cutAxis = cutVertical ? 'x' : 'y'
+        if (cutSide > this.gridMin * 2) {
+          const rect1Size = randomInRange(this.gridMin, cutSide - this.gridMin)
+          const rect1 = Object.assign({}, currentRect, { [cutSize]: rect1Size })
+          const rect2 = Object.assign({}, currentRect, { [cutAxis]: currentRect[cutAxis] + rect1Size, [cutSize]: currentRect[cutSize] - rect1Size })
+          this.currentRects.push(rect1, rect2)
+        }
+        else {
+          this.rects.push(currentRect)
+          this.splitCurrentRect()
+        }
+      }
+    }
+
+    // Call `splitCurrentRect` until there is no more rectangles on the list
+    // Then return the list of rectangles
+    generateRects () {
+      while (this.currentRects.length) {
+        this.splitCurrentRect()
+      }
+      return this.rects
+    }
+  }
+
+  // Generate a random integer in the range provided
+  function randomInRange (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+
+  // Get canvas view
+  const view = document.querySelector('.view')
+  // Loaded resources will be here
+  const resources = PIXI.Loader.shared.resources
+  // Target for pointer. If down, value is 1, else value is 0
+  let pointerDownTarget = 0
+  // Useful variables to keep track of the pointer
+  let pointerStart = new PIXI.Point()
+  let pointerDiffStart = new PIXI.Point()
+  let width, height, app, background, uniforms, diffX, diffY
+
+  // Variables and settings for grid
+  const gridSize = 40
+  const gridMin = 6
+  const imagePadding = 10
+  let gridColumnsCount, gridRowsCount, gridColumns, gridRows, grid
+  let widthRest, heightRest, centerX, centerY, container, rects
+  let images, imagesUrls
+
+  // Set dimensions
+  function initDimensions () {
+    width = window.innerWidth
+    height = window.innerHeight
+    diffX = 0
+    diffY = 0
+  }
+
+  // Set initial values for uniforms
+  function initUniforms () {
+    uniforms = {
+      uResolution: new PIXI.Point(width, height),
+      uPointerDiff: new PIXI.Point(),
+      uPointerDown: pointerDownTarget
+    }
+  }
+
+  // Initialize the random grid layout
+  function initGrid () {
+    // Getting columns
+    gridColumnsCount = Math.ceil(width / gridSize)
+    // Getting rows
+    gridRowsCount = Math.ceil(height / gridSize)
+    // Make the grid 5 times bigger than viewport
+    gridColumns = gridColumnsCount * 1
+    gridRows = gridRowsCount * 35
+    // Create a new Grid instance with our settings
+    grid = new Grid(gridSize, gridColumns, gridRows, gridMin)
+    // Calculate the center position for the grid in the viewport
+    widthRest = Math.ceil(gridColumnsCount * gridSize - width)
+    heightRest = Math.ceil(gridRowsCount * gridSize - height)
+    centerX = (gridColumns * gridSize / 2) - (gridColumnsCount * gridSize / 2)
+    centerY = (gridRows * gridSize / 2) - (gridRowsCount * gridSize / 2)
+    // Generate the list of rects
+    rects = grid.generateRects()
+    // For the list of images
+    images = []
+    // For storing the image URL and avoid duplicates
+    imagesUrls = {}
+  }
+
+  // Init the PixiJS Application
+  function initApp () {
+    // Create a PixiJS Application, using the view (canvas) provided
+    app = new PIXI.Application({ view })
+    // Resizes renderer view in CSS pixels to allow for resolutions other than 1
+    app.renderer.autoDensity = true
+    // Resize the view to match viewport dimensions
+    app.renderer.resize(width, height)
+
+    // Set the distortion filter for the entire stage
+    const stageFragmentShader = document.getElementById('stageFragment').textContent
+    const stageFilter = new PIXI.Filter(undefined, stageFragmentShader, uniforms)
+    app.stage.filters = [stageFilter]
+  }
+
+  // Init the gridded background
+  function initBackground () {
+    // Create a new empty Sprite and define its size
+    background = new PIXI.Sprite()
+    background.width = width
+    background.height = height
+    // Get the code for the fragment shader from the loaded resources
+    const backgroundFragmentShader = document.getElementById('backgroundFragment').textContent
+    // Create a new Filter using the fragment shader
+    // We don't need a custom vertex shader, so we set it as `undefined`
+    const backgroundFilter = new PIXI.Filter(undefined, backgroundFragmentShader, uniforms)
+    // Assign the filter to the background Sprite
+    background.filters = [backgroundFilter]
+    // Add the background to the stage
+    app.stage.addChild(background)
+  }
+
+  // Initialize a Container element for solid rectangles and images
+  function initContainer () {
+    container = new PIXI.Container()
+    app.stage.addChild(container)
+  }
+
+ function loadTextureForImage(index) {
+  // Get image Sprite
+  const image = images[index];
+  // Get the corresponding rect, to store more data needed (it is a normal Object)
+  const rect = rects[index];
+  // Create a new AbortController, to abort fetch if needed
+  const { signal } = (rect.controller = new AbortController());
+
+  // Fetch the text file containing URLs
+  fetch('https://ongezell.com/things/linksimg.txt', { signal })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch URL file');
+      }
+      return response.text();
+    })
+    .then((text) => {
+      const urls = text.split('\n'); // Split text into lines
+      const randomIndex = Math.floor(Math.random() * urls.length);
+      const url = urls[randomIndex].trim(); // Get a random URL from the file
+
+      // Fetch the image from the random URL
+      fetch(url, { signal })
+        .then((response) => {
+          // Get image URL, and if it was downloaded before, load another image
+          // Otherwise, save image URL and set the texture
+          const id = response.url.split('?')[0];
+          if (imagesUrls[id]) {
+            loadTextureForImage(index);
+          } else {
+            imagesUrls[id] = true;
+            image.texture = PIXI.Texture.from(response.url);
+            rect.loaded = true;
+          }
+        })
+        .catch(() => {
+          // Catch errors silently, for not showing the following error message if it is aborted:
+          // AbortError: The operation was aborted.
+        });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+
+ // Initialize the images and rectangles
+function initRectsAndImages() {
+  // Create a new Graphics element to draw solid rectangles
+  const graphics = new PIXI.Graphics();
+
+  // Select the color for rectangles
+  graphics.beginFill(0x000000);
+
+  // Loop over each rect in the list
+  rects.forEach((rect, index) => {
+    // Create a new Sprite element for each image
+    const image = new PIXI.Sprite();
+
+    // Calculate the aspect ratio of the image
+    const aspectRatio = image.texture.width / image.texture.height;
+
+    // Calculate the maximum width and height based on the grid size and padding
+    const maxWidth = rect.w * gridSize - imagePadding;
+    const maxHeight = rect.h * gridSize - imagePadding;
+
+    // Calculate the scaling factor to fit the image within the rectangle
+    let scaleFactorX = maxWidth / image.texture.width;
+    let scaleFactorY = maxHeight / image.texture.height;
+
+    // Use the smaller of the two scaling factors to maintain aspect ratio
+    const scaleFactor = Math.min(scaleFactorX, scaleFactorY);
+
+    // Set the width and height while maintaining aspect ratio
+    image.width = image.texture.width * scaleFactor;
+    image.height = image.texture.height * scaleFactor;
+
+    // Center the image within the rectangle
+    image.x = rect.x * gridSize + (rect.w * gridSize - image.width) / 2;
+    image.y = rect.y * gridSize + (rect.h * gridSize - image.height) / 2;
+
+    // Set its alpha to 0, so it is not visible initially
+    image.alpha = 0;
+
+    // Add image to the list
+    images.push(image);
+
+    // Draw the rectangle
+    graphics.drawRect(image.x, image.y, image.width, image.height);
+  });
+
+  // End the fill action
+  graphics.endFill();
+
+  // Add the graphics (with all drawn rects) to the container
+  container.addChild(graphics);
+
+  // Add all image Sprites to the container
+  images.forEach((image) => {
+    container.addChild(image);
+  });
+}
+
+
+
+  // Check if rects intersects with the viewport
+  // and loads corresponding image
+  function checkRectsAndImages () {
+    // Loop over rects
+    rects.forEach((rect, index) => {
+      // Get corresponding image
+      const image = images[index]
+      // Check if the rect intersects with the viewport
+      if (rectIntersectsWithViewport(rect)) {
+        // If rect just has been discovered
+        // start loading image
+        if (!rect.discovered) {
+          rect.discovered = true
+          loadTextureForImage(index)
+        }
+        // If image is loaded, increase alpha if possible
+        if (rect.loaded && image.alpha < 1) {
+          image.alpha += 0.01
+        }
+      } else { // The rect is not intersecting
+        // If the rect was discovered before, but the
+        // image is not loaded yet, abort the fetch
+        if (rect.discovered && !rect.loaded) {
+          rect.discovered = false
+          rect.controller.abort()
+        }
+        // Decrease alpha if possible
+        if (image.alpha > 0) {
+          image.alpha -= 0.01
+        }
+      }
+    })
+  }
+
+  // Check if a rect intersects the viewport
+  function rectIntersectsWithViewport (rect) {
+    return (
+      rect.x * gridSize + container.x <= width &&
+      0 <= (rect.x + rect.w) * gridSize + container.x &&
+      rect.y * gridSize + container.y <= height &&
+      0 <= (rect.y + rect.h) * gridSize + container.y
+    )
+  }
+
+  // Start listening events
+  function initEvents () {
+    // Make stage interactive, so it can listen to events
+    app.stage.interactive = true
+
+    // Pointer & touch events are normalized into
+    // the `pointer*` events for handling different events
+    app.stage
+      .on('pointerdown', onPointerDown)
+      .on('pointerup', onPointerUp)
+      .on('pointerupoutside', onPointerUp)
+      .on('pointermove', onPointerMove)
+  }
+
+  // On pointer down, save coordinates and set pointerDownTarget
+  function onPointerDown (e) {
+    const { x, y } = e.data.global
+
+    pointerStart.set(x, y)
+    pointerDiffStart = uniforms.uPointerDiff.clone()
+  }
+
+  // On pointer up, set pointerDownTarget
+  function onPointerUp () {
+
+  }
+
+
+
+
+
+
+
+  // Function to handle mouse wheel scrolling and update shader effect
+let scrollTimeout;
+
+// Function to handle mouse wheel scrolling and update shader effect
+// Variables to handle smooth scrolling
+let isScrolling = false;
+let targetY = 0;
+let scrollSpeed = .6; // Adjust this value for scroll speed
+
+
+var scrollDisabledDiv = document.getElementById('sideBar');
+
+scrollDisabledDiv.addEventListener('mouseenter', function () {
+ scrollSpeed = 0;
+  console.log('enter');
+});
+
+scrollDisabledDiv.addEventListener('mouseleave', function () {
+ scrollSpeed = .6;
+   console.log('exit');
+});
+
+function onWheelScroll(event) {
+  // Prevent the default scroll behavior
+  event.preventDefault();
+
+  // Set mousedown to 1 while scrolling
+  pointerDownTarget = 1;
+
+  // Clear any previous scroll timeout
+  clearTimeout(scrollTimeout);
+
+  // Calculate the desired scroll position based on scrollDelta
+  const scrollDelta = event.deltaY;
+  targetY += scrollDelta * scrollSpeed;
+
+  // Ensure that targetY stays within the desired bounds
+  targetY = Math.max(targetY, -(centerY + heightRest));
+  targetY = Math.min(targetY, centerY + imagePadding);
+
+  // If scrolling is not already in progress, start smooth scrolling
+  if (!isScrolling) {
+    smoothScroll();
+  }
+}
+
+function smoothScroll() {
+  isScrolling = true;
+  ease = 0.02; // Adjust this value for smoothness
+
+  // Calculate the difference between the current and target scroll position
+  const diff = targetY - diffY;
+
+  // Apply easing to the diff
+  diffY += diff * ease;
+
+  // Update the uniform variable used by the shader to simulate the effect
+  uniforms.uPointerDiff.y = diffY;
+
+  // Check if we are close enough to the target position
+  if (Math.abs(diff) < 0.1) {
+    isScrolling = false;
+  } else {
+    // Continue smooth scrolling
+    requestAnimationFrame(smoothScroll);
+  }
+
+  // Check if we've reached the top or bottom of the content
+  if (diffY <= -(centerY + heightRest) || diffY >= centerY + imagePadding) {
+    isScrolling = false;
+  }
+}
+
+
+
+
+
+
+
+
+// Variables to handle smooth scrolling
+
+let lastTouchY = 0; // Keep track of the last touch position
+let scrollSpeedTouch = 3;
+
+function onTouchStart(event) {
+  // Record the initial touch position when touch starts
+  lastTouchY = event.touches[0].clientY;
+}
+
+function onTouchMove(event) {
+  // Prevent the default scroll behavior
+  event.preventDefault();
+
+  // Set mousedown to 1 while scrolling
+  pointerDownTarget = 1;
+
+  // Calculate the desired scroll position based on touch movement
+  const currentTouchY = event.touches[0].clientY;
+  const touchDelta = lastTouchY - currentTouchY;
+  
+  lastTouchY = currentTouchY; // Update the last touch position
+  targetY += touchDelta * scrollSpeedTouch;
+
+  // Ensure that targetY stays within the desired bounds
+  targetY = Math.max(targetY, -(centerY + heightRest));
+  targetY = Math.min(targetY, centerY + imagePadding);
+
+  // If scrolling is not already in progress, start smooth scrolling
+  if (!isScrolling) {
+    smoothScroll();
+  }
+}
+
+function smoothScroll() {
+  isScrolling = true;
+  ease = 0.02; // Adjust this value for smoothness
+
+  // Calculate the difference between the current and target scroll position
+  const diff = targetY - diffY;
+
+  // Apply easing to the diff
+  diffY += diff * ease;
+
+  // Update the uniform variable used by the shader to simulate the effect
+  uniforms.uPointerDiff.y = diffY;
+
+  // Check if we are close enough to the target position
+  if (Math.abs(diff) < 0.1) {
+    isScrolling = false;
+  } else {
+    // Continue smooth scrolling
+    requestAnimationFrame(smoothScroll);
+  }
+
+
+  if (diffY <= -(centerY + heightRest) || diffY >= centerY + imagePadding) {
+    isScrolling = false;
+  }
+}
+
+
+document.addEventListener('touchstart', onTouchStart);
+document.addEventListener('touchmove', onTouchMove);
+
+
+
+
+
+
+  
+  
+  // On pointer move, calculate coordinates diff
+  function onPointerMove (e) {
+    const { x, y } = e.data.global
+    if (pointerDownTarget) {
+
+    }
+  }
+
+  
+  function updateAnimation() {
+  // Multiply the values by a coefficient to get a smooth animation
+  uniforms.uPointerDown += (pointerDownTarget - uniforms.uPointerDown) * 0.075;
+  uniforms.uPointerDiff.x += (diffX - uniforms.uPointerDiff.x) * 0.2;
+  uniforms.uPointerDiff.y += (diffY - uniforms.uPointerDiff.y) * 0.2;
+
+  // Set position for the container
+  container.x = uniforms.uPointerDiff.x - centerX;
+  container.y = uniforms.uPointerDiff.y - centerY;
+
+  // Check rects and load/cancel images as needed
+  checkRectsAndImages();
+}
+
+  
+  
+  // Init everything
+  function init () {
+        pointerDownTarget = 1
+     window.addEventListener('wheel', onWheelScroll);
+    initDimensions()
+    initUniforms()
+    initGrid()
+    initApp()
+    initBackground()
+    initContainer()
+    initRectsAndImages()
+    initEvents()
+
+    // Animation loop
+    // Code here will be executed on every animation frame
+    app.ticker.add(() => {
+      // Multiply the values by a coefficient to get a smooth animation
+      uniforms.uPointerDown += (pointerDownTarget - uniforms.uPointerDown) * 0.075
+      uniforms.uPointerDiff.x += (diffX - uniforms.uPointerDiff.x) * 0.2
+      uniforms.uPointerDiff.y += (diffY - uniforms.uPointerDiff.y) * 0.2
+      // Set position for the container
+      container.x = uniforms.uPointerDiff.x - centerX
+      container.y = uniforms.uPointerDiff.y - centerY
+      // Check rects and load/cancel images as needded
+      checkRectsAndImages()
+    })
+  }
+
+  // Clean the current Application
+  function clean () {
+    // Stop the current animation
+    app.ticker.stop()
+
+    // Remove event listeners
+    app.stage
+      .off('pointerdown', onPointerDown)
+      .off('pointerup', onPointerUp)
+      .off('pointerupoutside', onPointerUp)
+      .off('pointermove', onPointerMove)
+
+    // Abort all fetch calls in progress
+    rects.forEach(rect => {
+      if (rect.discovered && !rect.loaded) {
+        rect.controller.abort()
+      }
+    })
+  }
+
+  // On resize, reinit the app (clean and init)
+  // But first debounce the calls, so we don't call init too often
+  let resizeTimer
+  function onResize () {
+    if (resizeTimer) clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(() => {
+      clean()
+      init()
+    }, 200)
+  }
+  // Listen to resize event
+  window.addEventListener('resize', onResize)
+
+  // Init the app
+  init()
+
+})()
+
+
+   
+   </script>
+
+   
+  </body>
 </html>
